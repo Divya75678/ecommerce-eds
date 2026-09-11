@@ -172,7 +172,7 @@ export default async function decorate(block) {
     // My Account icon link
     const accountLink = document.createElement('a');
     accountLink.className = 'nav-account-link';
-    accountLink.href = '/account';
+    accountLink.href = '/eds-ecommerce/pages/account';
     accountLink.setAttribute('aria-label', 'My Account');
     accountLink.title = 'My Account';
     accountLink.innerHTML = `

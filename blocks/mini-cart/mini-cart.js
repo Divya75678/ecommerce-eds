@@ -129,7 +129,7 @@ export default function decorate(block) {
         <span class="mini-cart-subtotal-label">Subtotal</span>
         <span class="mini-cart-subtotal-value">${formatPrice(0)}</span>
       </div>
-      <a href="/cart" class="button accent mini-cart-view-cart" style="display:none">View Cart</a>
+      <a href="/eds-ecommerce/pages/cart" class="button accent mini-cart-view-cart" style="display:none">View Cart</a>
     </div>
   `;
 

@@ -22,8 +22,8 @@ import { getOrders } from './orders.js';
  */
 export function getProfile() {
   return {
-    name: 'Alex Johnson',
-    email: 'alex.johnson@example.com',
+    name: 'Divya Patel',
+    email: 'divya.patel@example.com',
     memberSince: '2024-01-15',
     avatar: null, // null = use initials fallback
   };
