@@ -1,4 +1,4 @@
-import { getMetadata } from '../../scripts/aem.js';
+import { getMetadata, loadBlock } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 // media query match that indicates mobile/tablet width
@@ -163,6 +163,32 @@ export default async function decorate(block) {
   // prevent mobile nav behavior on window resize
   toggleMenu(nav, navSections, isDesktop.matches);
   isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
+
+  // ── Inject nav-tools icons (My Account + mini-cart) ──
+  const navTools = nav.querySelector('.nav-tools');
+  if (navTools) {
+    const toolsWrapper = navTools.querySelector('.default-content-wrapper') || navTools;
+
+    // My Account icon link
+    const accountLink = document.createElement('a');
+    accountLink.className = 'nav-account-link';
+    accountLink.href = '/eds-ecommerce/pages/account';
+    accountLink.setAttribute('aria-label', 'My Account');
+    accountLink.title = 'My Account';
+    accountLink.innerHTML = `
+      <img src="/icons/user.svg" alt="" width="24" height="24" aria-hidden="true">
+    `;
+    toolsWrapper.appendChild(accountLink);
+
+    // Mini-cart
+    const miniCartEl = document.createElement('div');
+    miniCartEl.className = 'mini-cart block';
+    miniCartEl.dataset.blockName = 'mini-cart';
+    miniCartEl.dataset.blockStatus = '';
+    toolsWrapper.appendChild(miniCartEl);
+    // Load and decorate the mini-cart block
+    await loadBlock(miniCartEl);
+  }
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';

@@ -1,0 +1,387 @@
+/* =========================================================
+   Account Orders Block — /account/orders page
+   Order list with expandable detail rows
+   ========================================================= */
+
+.account-orders-wrapper {
+  padding: 0;
+}
+
+.account-orders {
+  max-width: var(--max-width, 1280px);
+  margin: 0 auto;
+  padding: 40px 24px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+@media (width >= 900px) {
+  .account-orders {
+    padding: 48px 32px 80px;
+  }
+}
+
+/* =========================================================
+   Page Header
+   ========================================================= */
+.account-orders-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--color-brand-dark, #1e3a1e);
+}
+
+.account-orders-title {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-l, 28px);
+  font-weight: 700;
+  color: var(--color-brand-dark, #1e3a1e);
+  margin: 0;
+}
+
+.account-orders-count {
+  font-size: var(--body-font-size-xs, 13px);
+  font-weight: 500;
+  color: var(--color-text-muted, #6b6b6b);
+  background-color: var(--color-bg-cream, #f5f0eb);
+  border-radius: var(--border-radius-pill, 100px);
+  padding: 3px 12px;
+}
+
+/* =========================================================
+   Empty State
+   ========================================================= */
+.account-orders-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.account-orders-empty-text {
+  font-size: var(--body-font-size-s, 16px);
+  color: var(--color-text-muted, #6b6b6b);
+  margin: 0;
+}
+
+/* =========================================================
+   Orders Table
+   ========================================================= */
+.account-orders-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1.5px solid var(--color-border, #e0d9d0);
+  border-radius: var(--border-radius-card, 12px);
+  overflow: hidden;
+}
+
+/* Column header row — desktop only */
+.account-orders-table-head {
+  display: none;
+}
+
+@media (width >= 700px) {
+  .account-orders-table-head {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 80px 100px 32px;
+    gap: 16px;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: var(--color-bg-cream, #f5f0eb);
+    font-size: var(--body-font-size-xs, 13px);
+    font-weight: 600;
+    color: var(--color-text-muted, #6b6b6b);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--color-border, #e0d9d0);
+  }
+}
+
+/* =========================================================
+   Order Row
+   ========================================================= */
+.account-order-row {
+  border-bottom: 1px solid var(--color-border, #e0d9d0);
+}
+
+.account-order-row:last-child {
+  border-bottom: none;
+}
+
+/* Summary button — the always-visible clickable row */
+.account-order-summary {
+  display: grid;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 16px 20px;
+  gap: 8px 16px;
+  font: inherit;
+  color: inherit;
+  transition: background-color var(--transition-base, 200ms ease);
+
+  /* Mobile: 2-column layout */
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "id     toggle"
+    "date   status"
+    "items  total";
+  align-items: center;
+}
+
+.account-order-summary:hover {
+  background-color: var(--color-bg-cream, #f5f0eb);
+}
+
+@media (width >= 700px) {
+  .account-order-summary {
+    grid-template-columns: 2fr 1fr 1fr 80px 100px 32px;
+    grid-template-areas: none;
+    gap: 16px;
+    align-items: center;
+    padding: 16px 20px;
+  }
+}
+
+/* Individual cells */
+.account-order-id {
+  font-size: var(--body-font-size-xs, 13px);
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  color: var(--color-brand-dark, #1e3a1e);
+  word-break: break-all;
+  grid-area: id;
+}
+
+.account-order-date {
+  font-size: var(--body-font-size-xs, 13px);
+  color: var(--color-text-muted, #6b6b6b);
+  grid-area: date;
+}
+
+.account-order-status {
+  grid-area: status;
+}
+
+.account-order-items-count {
+  font-size: var(--body-font-size-xs, 13px);
+  color: var(--color-text-muted, #6b6b6b);
+  grid-area: items;
+}
+
+.account-order-total {
+  font-size: var(--body-font-size-s, 16px);
+  font-weight: 700;
+  color: var(--color-brand-dark, #1e3a1e);
+  grid-area: total;
+}
+
+@media (width >= 700px) {
+  .account-order-id,
+  .account-order-date,
+  .account-order-status,
+  .account-order-items-count,
+  .account-order-total {
+    grid-area: auto;
+  }
+}
+
+/* Expand/collapse toggle */
+.account-order-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted, #6b6b6b);
+  grid-area: toggle;
+}
+
+@media (width >= 700px) {
+  .account-order-toggle {
+    grid-area: auto;
+    justify-self: end;
+  }
+}
+
+.account-order-chevron {
+  display: block;
+  transition: transform var(--transition-base, 200ms ease);
+}
+
+.account-order-row.is-expanded .account-order-chevron {
+  transform: rotate(180deg);
+}
+
+/* =========================================================
+   Status Pills
+   ========================================================= */
+.account-status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--border-radius-pill, 100px);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.account-status--delivered {
+  background-color: #e6f4ea;
+  color: #2e7d32;
+}
+
+.account-status--confirmed,
+.account-status--processing {
+  background-color: #fff8e1;
+  color: #f57f17;
+}
+
+.account-status--cancelled {
+  background-color: #fce8e6;
+  color: #c62828;
+}
+
+.account-status--pending {
+  background-color: var(--color-bg-cream, #f5f0eb);
+  color: var(--color-text-muted, #6b6b6b);
+}
+
+/* =========================================================
+   Expanded Order Detail Panel
+   ========================================================= */
+.account-order-detail {
+  border-top: 1px solid var(--color-border, #e0d9d0);
+  background-color: var(--color-bg-cream, #f5f0eb);
+  padding: 20px;
+}
+
+.account-order-detail[hidden] {
+  display: none;
+}
+
+.account-order-detail-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 640px;
+}
+
+.account-order-detail-heading {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xs, 16px);
+  font-weight: 700;
+  color: var(--color-brand-dark, #1e3a1e);
+  margin: 0;
+}
+
+/* Line items within expanded detail */
+.account-order-detail-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.account-order-detail-item {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  background-color: #fff;
+  border-radius: var(--border-radius-sm, 6px);
+  padding: 12px;
+}
+
+.account-order-detail-image {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--border-radius-sm, 6px);
+  overflow: hidden;
+  background-color: var(--color-bg-cream, #f5f0eb);
+  flex-shrink: 0;
+}
+
+.account-order-detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.account-order-detail-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-bg-cream, #f5f0eb);
+}
+
+.account-order-detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.account-order-detail-name {
+  font-size: var(--body-font-size-s, 16px);
+  font-weight: 600;
+  color: var(--text-color, #131313);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.account-order-detail-sku,
+.account-order-detail-qty {
+  font-size: 12px;
+  color: var(--color-text-muted, #6b6b6b);
+  margin: 0;
+}
+
+.account-order-detail-price {
+  font-size: var(--body-font-size-s, 16px);
+  font-weight: 700;
+  color: var(--color-price, #1a1a1a);
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Order total row within detail */
+.account-order-detail-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border, #e0d9d0);
+  font-size: var(--body-font-size-s, 16px);
+}
+
+.account-order-detail-total-label {
+  font-weight: 600;
+  color: var(--text-color, #131313);
+}
+
+.account-order-detail-total-value {
+  font-size: var(--heading-font-size-xs, 18px);
+  font-weight: 700;
+  color: var(--color-brand-dark, #1e3a1e);
+}
+
+.account-order-detail-empty {
+  font-size: var(--body-font-size-xs, 14px);
+  color: var(--color-text-muted, #6b6b6b);
+  margin: 0;
+}
+
+/* =========================================================
+   Section overrides
+   ========================================================= */
+.section:has(.account-orders) {
+  background-color: var(--background-color, #fff);
+}

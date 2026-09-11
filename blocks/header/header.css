@@ -270,3 +270,18 @@ header nav .nav-sections ul > li > ul > li {
 header nav .nav-tools {
   grid-area: tools;
 }
+
+header nav .nav-tools .default-content-wrapper{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 24px;
+}
+
+header nav .nav-tools .default-content-wrapper p{
+ gap: 16px;
+}
+
+
+
+
