@@ -107,8 +107,8 @@
 }
 
 /* Specs list */
-.product-specs-content ul,
-.product-specs-list {
+.product-specs-list,
+.product-specs-content ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -117,8 +117,8 @@
   gap: 10px;
 }
 
-.product-specs-content ul li,
-.product-specs-list li {
+.product-specs-list li,
+.product-specs-content ul li {
   display: flex;
   align-items: flex-start;
   gap: 12px;
@@ -127,8 +127,8 @@
   line-height: 1.6;
 }
 
-.product-specs-content ul li::before,
-.product-specs-list li::before {
+.product-specs-list li::before,
+.product-specs-content ul li::before {
   content: '';
   display: inline-block;
   flex-shrink: 0;

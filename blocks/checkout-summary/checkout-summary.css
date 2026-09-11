@@ -352,16 +352,14 @@
 
   /* Mobile: show in the second column, aligned right */
   grid-column: 2 / 3;
-  justify-self: end;
-  align-self: start;
+  place-self: start end;
   margin: 0;
 }
 
 @media (width >= 700px) {
   .checkout-line-item .cart-line-total {
     grid-column: auto;
-    align-self: center;
-    justify-self: auto;
+    place-self: center auto;
   }
 }
 

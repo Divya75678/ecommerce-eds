@@ -20,7 +20,9 @@
  *         a.button.accent → /cart
  */
 
-import { getItems, getTotals, formatPrice, subscribe } from '../../scripts/cart.js';
+import {
+  getItems, getTotals, formatPrice, subscribe,
+} from '../../scripts/cart.js';
 
 const BAG_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -45,8 +47,8 @@ function buildLineItem(item) {
   li.innerHTML = `
     <div class="mini-cart-item-image">
       ${item.image
-        ? `<img src="${item.image}" alt="${item.name}" width="56" height="56" loading="lazy">`
-        : '<div class="mini-cart-item-placeholder"></div>'}
+    ? `<img src="${item.image}" alt="${item.name}" width="56" height="56" loading="lazy">`
+    : '<div class="mini-cart-item-placeholder"></div>'}
     </div>
     <div class="mini-cart-item-details">
       <span class="mini-cart-item-name">${item.name}</span>

@@ -100,8 +100,8 @@ function buildLineItem(item, onUpdate) {
   row.innerHTML = `
     <div class="cart-line-image">
       ${item.image
-        ? `<img src="${item.image}" alt="${item.name}" width="96" height="96" loading="lazy">`
-        : '<div class="cart-line-image-placeholder"></div>'}
+    ? `<img src="${item.image}" alt="${item.name}" width="96" height="96" loading="lazy">`
+    : '<div class="cart-line-image-placeholder"></div>'}
     </div>
     <div class="cart-line-details">
       <p class="cart-line-name">${item.name}</p>
@@ -222,18 +222,6 @@ function buildSummary(container, config) {
       </div>
     </div>
   `;
-}
-
-/**
- * Update totals in the summary without a full rebuild
- * @param {HTMLElement} summaryEl
- */
-function refreshSummary(summaryEl) {
-  const { subtotal, estimatedTotal } = getTotals();
-  const subtotalEl = summaryEl.querySelector('.cart-summary-subtotal');
-  const estimatedEl = summaryEl.querySelector('.cart-summary-estimated');
-  if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
-  if (estimatedEl) estimatedEl.textContent = formatPrice(estimatedTotal);
 }
 
 /**

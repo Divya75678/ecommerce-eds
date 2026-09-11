@@ -279,41 +279,6 @@ export default function decorate(block) {
 
   actions.appendChild(qtyWrapper);
 
-  // Add to Cart CTA — wired to cart module
-  const ctaLink = addToCartCell?.querySelector('a');
-  const ctaText = ctaLink?.textContent?.trim() || 'Add to Cart';
-
-  const addToCart = document.createElement('button');
-  addToCart.type = 'button';
-  addToCart.classList.add('button', 'accent', 'product-add-to-cart');
-  addToCart.textContent = ctaText;
-
-  addToCart.addEventListener('click', () => {
-    // Collect product data from the rendered info panel
-    const currentImage = mainViewer.querySelector('img')?.src
-      || mainViewer.querySelector('picture source')?.srcset
-      || '';
-    const qty = parseInt(qtyInput.value, 10) || 1;
-
-    cartAddItem({
-      sku: skuText || titleText || 'unknown',
-      name: titleText || '',
-      price: priceText || '0',
-      quantity: qty,
-      image: currentImage,
-    });
-
-    showAddedToast(addToCart);
-  });
-
-  actions.appendChild(addToCart);
-
-  info.appendChild(actions);
-
-  // ════════════════════════════════════════
-  // ASSEMBLE
-  // ════════════════════════════════════════
-
   // ── Toast notification helper (scoped to this block) ──
   function showAddedToast(triggerEl) {
     // Remove any existing toast
@@ -350,6 +315,41 @@ export default function decorate(block) {
       toast.addEventListener('transitionend', () => toast.remove(), { once: true });
     }, 2500);
   }
+
+  // Add to Cart CTA — wired to cart module
+  const ctaLink = addToCartCell?.querySelector('a');
+  const ctaText = ctaLink?.textContent?.trim() || 'Add to Cart';
+
+  const addToCart = document.createElement('button');
+  addToCart.type = 'button';
+  addToCart.classList.add('button', 'accent', 'product-add-to-cart');
+  addToCart.textContent = ctaText;
+
+  addToCart.addEventListener('click', () => {
+    // Collect product data from the rendered info panel
+    const currentImage = mainViewer.querySelector('img')?.src
+      || mainViewer.querySelector('picture source')?.srcset
+      || '';
+    const qty = parseInt(qtyInput.value, 10) || 1;
+
+    cartAddItem({
+      sku: skuText || titleText || 'unknown',
+      name: titleText || '',
+      price: priceText || '0',
+      quantity: qty,
+      image: currentImage,
+    });
+
+    showAddedToast(addToCart);
+  });
+
+  actions.appendChild(addToCart);
+
+  info.appendChild(actions);
+
+  // ════════════════════════════════════════
+  // ASSEMBLE
+  // ════════════════════════════════════════
 
   block.innerHTML = '';
   const inner = document.createElement('div');

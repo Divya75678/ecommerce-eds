@@ -91,8 +91,8 @@ function buildReadOnlyLineItem(item) {
   row.innerHTML = `
     <div class="cart-line-image">
       ${item.image
-        ? `<img src="${item.image}" alt="${item.name}" width="96" height="96" loading="lazy">`
-        : '<div class="cart-line-image-placeholder"></div>'}
+    ? `<img src="${item.image}" alt="${item.name}" width="96" height="96" loading="lazy">`
+    : '<div class="cart-line-image-placeholder"></div>'}
     </div>
     <div class="cart-line-details">
       <p class="cart-line-name">${item.name}</p>
@@ -136,8 +136,8 @@ function buildTotals(config) {
           <span class="cart-summary-label">Shipping</span>
           <span class="cart-summary-value checkout-shipping">
             ${shippingLabel.toLowerCase() === 'free'
-              ? '<span class="checkout-shipping-free">Free</span>'
-              : `<span class="cart-summary-shipping">${shippingLabel}</span>`}
+    ? '<span class="checkout-shipping-free">Free</span>'
+    : `<span class="cart-summary-shipping">${shippingLabel}</span>`}
           </span>
         </div>
         <div class="cart-summary-row cart-summary-total-row">

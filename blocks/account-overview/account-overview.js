@@ -155,7 +155,9 @@ export default function decorate(block) {
     },
   ];
 
-  cards.forEach(({ icon, label, meta, url, cta }) => {
+  cards.forEach(({
+    icon, label, meta, url, cta,
+  }) => {
     const card = document.createElement('a');
     card.classList.add('account-quick-link-card');
     card.href = url;

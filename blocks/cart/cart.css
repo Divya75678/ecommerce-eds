@@ -303,13 +303,13 @@
   font-weight: 600;
   color: var(--text-color, #131313);
   background: transparent;
-  -moz-appearance: textfield;
+  appearance: textfield;
   outline: none;
 }
 
 .cart-qty-input::-webkit-inner-spin-button,
 .cart-qty-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
 
@@ -351,15 +351,13 @@
 
   /* Mobile: align to top-right */
   grid-column: 2 / 3;
-  justify-self: end;
-  align-self: start;
+  place-self: start end;
 }
 
 @media (width >= 700px) {
   .cart-line-remove {
     grid-column: auto;
-    align-self: center;
-    justify-self: auto;
+    place-self: center auto;
   }
 }
 

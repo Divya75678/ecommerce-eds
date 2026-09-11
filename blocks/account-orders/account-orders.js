@@ -91,8 +91,8 @@ function buildOrderDetail(order) {
     <div class="account-order-detail-item">
       <div class="account-order-detail-image">
         ${item.image
-          ? `<img src="${item.image}" alt="${item.name}" width="64" height="64" loading="lazy">`
-          : '<div class="account-order-detail-image-placeholder"></div>'}
+    ? `<img src="${item.image}" alt="${item.name}" width="64" height="64" loading="lazy">`
+    : '<div class="account-order-detail-image-placeholder"></div>'}
       </div>
       <div class="account-order-detail-info">
         <p class="account-order-detail-name">${item.name}</p>

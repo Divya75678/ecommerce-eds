@@ -73,10 +73,13 @@ export function formatPrice(amount) {
 
 /**
  * Add a product to the cart or increment its quantity.
- * @param {{ sku: string, name: string, price: string|number, quantity?: number, image?: string }} product
+ * @param {{ sku: string, name: string, price: string|number,
+ *   quantity?: number, image?: string }} product
  */
 export function addItem(product) {
-  const { sku, name, price, image } = product;
+  const {
+    sku, name, price, image,
+  } = product;
   const qty = Math.max(1, parseInt(product.quantity, 10) || 1);
 
   if (!sku) {

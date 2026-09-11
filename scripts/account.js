@@ -49,9 +49,14 @@ const SEED_ORDERS = [
     orderId: 'ORD-1718123001-1001',
     date: '2026-08-15T10:30:00.000Z',
     status: 'Delivered',
-    totals: { subtotal: 178.00, estimatedTotal: 178.00 },
+    totals: {
+      subtotal: 178.00,
+      estimatedTotal: 178.00,
+    },
     items: [
-      { sku: 'PLT-CAL-001', name: 'Calathea Runestad', price: 89.00, quantity: 2, image: '' },
+      {
+        sku: 'PLT-CAL-001', name: 'Calathea Runestad', price: 89.00, quantity: 2, image: '',
+      },
     ],
     itemsCount: 2,
   },
@@ -59,9 +64,14 @@ const SEED_ORDERS = [
     orderId: 'ORD-1718123002-1002',
     date: '2026-07-28T14:15:00.000Z',
     status: 'Delivered',
-    totals: { subtotal: 89.00, estimatedTotal: 89.00 },
+    totals: {
+      subtotal: 89.00,
+      estimatedTotal: 89.00,
+    },
     items: [
-      { sku: 'PLT-FLF-002', name: 'Fiddle Leaf Fig', price: 89.00, quantity: 1, image: '' },
+      {
+        sku: 'PLT-FLF-002', name: 'Fiddle Leaf Fig', price: 89.00, quantity: 1, image: '',
+      },
     ],
     itemsCount: 1,
   },
@@ -69,11 +79,20 @@ const SEED_ORDERS = [
     orderId: 'ORD-1718123003-1003',
     date: '2026-06-10T09:00:00.000Z',
     status: 'Cancelled',
-    totals: { subtotal: 245.00, estimatedTotal: 245.00 },
+    totals: {
+      subtotal: 245.00,
+      estimatedTotal: 245.00,
+    },
     items: [
-      { sku: 'PLT-MON-003', name: 'Monstera Deliciosa', price: 65.00, quantity: 2, image: '' },
-      { sku: 'PLT-PAL-004', name: 'Parlour Palm', price: 55.00, quantity: 1, image: '' },
-      { sku: 'PLT-PCL-005', name: 'Peace Lily',    price: 60.00, quantity: 1, image: '' },
+      {
+        sku: 'PLT-MON-003', name: 'Monstera Deliciosa', price: 65.00, quantity: 2, image: '',
+      },
+      {
+        sku: 'PLT-PAL-004', name: 'Parlour Palm', price: 55.00, quantity: 1, image: '',
+      },
+      {
+        sku: 'PLT-PCL-005', name: 'Peace Lily', price: 60.00, quantity: 1, image: '',
+      },
     ],
     itemsCount: 3,
   },

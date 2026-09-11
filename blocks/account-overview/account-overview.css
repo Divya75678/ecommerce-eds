@@ -147,7 +147,7 @@
 
 .account-quick-link-card:hover {
   border-color: var(--color-brand-green, #5a9e5a);
-  box-shadow: var(--shadow-card-hover, 0 8px 32px rgba(0, 0, 0, 0.12));
+  box-shadow: var(--shadow-card-hover, 0 8px 32px rgb(0 0 0 / 12%));
   transform: translateY(-2px);
   text-decoration: none;
   color: inherit;

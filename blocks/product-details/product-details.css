@@ -42,6 +42,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+
   /* position: sticky; */
   top: calc(var(--nav-height, 72px) + 24px);
 }
@@ -263,13 +264,13 @@
   font-weight: 600;
   color: var(--text-color, #131313);
   background: transparent;
-  -moz-appearance: textfield;
+  appearance: textfield;
   outline: none;
 }
 
 .product-qty-input::-webkit-inner-spin-button,
 .product-qty-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
 
