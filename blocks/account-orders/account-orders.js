@@ -1,27 +1,3 @@
-/**
- * Account Orders Block
- *
- * Renders an order history list for the /account/orders page.
- * Clicking a row expands it to show the order's line items (client-side only).
- *
- * Authored block table structure (in account-orders.html):
- * ──────────────────────────────────────────────────────────
- * | Account Orders          |                               |
- * | Page Heading            | My Orders                     |
- * | Continue Shopping URL   | /category/all                 |
- * ──────────────────────────────────────────────────────────
- *
- * Rendered structure:
- *   .account-orders
- *     .account-orders-header
- *     .account-orders-table
- *       .account-orders-table-head
- *       .account-order-row × N
- *         .account-order-summary   (always visible — click to expand)
- *         .account-order-detail    (hidden; expands on click)
- *     .account-orders-empty        (shown when no orders)
- */
-
 import {
   getAccountOrders,
   formatOrderDate,
@@ -37,11 +13,6 @@ const CHEVRON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="
   <polyline points="6 9 12 15 18 9"/>
 </svg>`;
 
-/**
- * Convert a key string to camelCase.
- * @param {string} str
- * @returns {string}
- */
 function toCamelCase(str) {
   return str
     .toLowerCase()
@@ -51,11 +22,6 @@ function toCamelCase(str) {
     .replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
 
-/**
- * Parse authored key|value config rows.
- * @param {HTMLElement} block
- * @returns {object}
- */
 function readConfig(block) {
   const config = {};
   block.querySelectorAll(':scope > div').forEach((row) => {
@@ -69,11 +35,58 @@ function readConfig(block) {
   return config;
 }
 
-/**
- * Build the expanded order detail panel (line items).
- * @param {object} order
- * @returns {HTMLElement}
- */
+function buildDetailItem(item) {
+  const itemEl = document.createElement('div');
+  itemEl.classList.add('account-order-detail-item');
+
+  // Image
+  const imageWrapper = document.createElement('div');
+  imageWrapper.classList.add('account-order-detail-image');
+  if (item.image) {
+    const img = document.createElement('img');
+    img.src = item.image;
+    img.alt = item.name;
+    img.width = 64;
+    img.height = 64;
+    img.loading = 'lazy';
+    imageWrapper.appendChild(img);
+  } else {
+    const placeholder = document.createElement('div');
+    placeholder.classList.add('account-order-detail-image-placeholder');
+    imageWrapper.appendChild(placeholder);
+  }
+  itemEl.appendChild(imageWrapper);
+
+  // Info
+  const info = document.createElement('div');
+  info.classList.add('account-order-detail-info');
+
+  const nameEl = document.createElement('p');
+  nameEl.classList.add('account-order-detail-name');
+  nameEl.textContent = item.name;
+  info.appendChild(nameEl);
+
+  const skuEl = document.createElement('p');
+  skuEl.classList.add('account-order-detail-sku');
+  skuEl.textContent = `SKU: ${item.sku}`;
+  info.appendChild(skuEl);
+
+  const qtyEl = document.createElement('p');
+  qtyEl.classList.add('account-order-detail-qty');
+  qtyEl.textContent = `Qty: ${item.quantity}`;
+  info.appendChild(qtyEl);
+
+  itemEl.appendChild(info);
+
+  // Price
+  const priceEl = document.createElement('p');
+  priceEl.classList.add('account-order-detail-price');
+  priceEl.textContent = formatPrice(item.price * item.quantity);
+  itemEl.appendChild(priceEl);
+
+  return itemEl;
+}
+
 function buildOrderDetail(order) {
   const detail = document.createElement('div');
   detail.classList.add('account-order-detail');
@@ -83,45 +96,51 @@ function buildOrderDetail(order) {
   const items = order.items || [];
 
   if (items.length === 0) {
-    detail.innerHTML = '<p class="account-order-detail-empty">No item details available.</p>';
+    const emptyMsg = document.createElement('p');
+    emptyMsg.classList.add('account-order-detail-empty');
+    emptyMsg.textContent = 'No item details available.';
+    detail.appendChild(emptyMsg);
     return detail;
   }
 
-  const itemsHtml = items.map((item) => `
-    <div class="account-order-detail-item">
-      <div class="account-order-detail-image">
-        ${item.image
-    ? `<img src="${item.image}" alt="${item.name}" width="64" height="64" loading="lazy">`
-    : '<div class="account-order-detail-image-placeholder"></div>'}
-      </div>
-      <div class="account-order-detail-info">
-        <p class="account-order-detail-name">${item.name}</p>
-        <p class="account-order-detail-sku">SKU: ${item.sku}</p>
-        <p class="account-order-detail-qty">Qty: ${item.quantity}</p>
-      </div>
-      <p class="account-order-detail-price">${formatPrice(item.price * item.quantity)}</p>
-    </div>
-  `).join('');
+  // Inner wrapper
+  const inner = document.createElement('div');
+  inner.classList.add('account-order-detail-inner');
 
-  detail.innerHTML = `
-    <div class="account-order-detail-inner">
-      <h3 class="account-order-detail-heading">Order Items</h3>
-      <div class="account-order-detail-items">${itemsHtml}</div>
-      <div class="account-order-detail-total">
-        <span class="account-order-detail-total-label">Order Total</span>
-        <span class="account-order-detail-total-value">${formatPrice(order.total)}</span>
-      </div>
-    </div>
-  `;
+  // Heading
+  const heading = document.createElement('h3');
+  heading.classList.add('account-order-detail-heading');
+  heading.textContent = 'Order Items';
+  inner.appendChild(heading);
+
+  // Items list
+  const itemsList = document.createElement('div');
+  itemsList.classList.add('account-order-detail-items');
+  items.forEach((item) => {
+    itemsList.appendChild(buildDetailItem(item));
+  });
+  inner.appendChild(itemsList);
+
+  // Total row
+  const totalRow = document.createElement('div');
+  totalRow.classList.add('account-order-detail-total');
+
+  const totalLabel = document.createElement('span');
+  totalLabel.classList.add('account-order-detail-total-label');
+  totalLabel.textContent = 'Order Total';
+  totalRow.appendChild(totalLabel);
+
+  const totalValue = document.createElement('span');
+  totalValue.classList.add('account-order-detail-total-value');
+  totalValue.textContent = formatPrice(order.total);
+  totalRow.appendChild(totalValue);
+
+  inner.appendChild(totalRow);
+  detail.appendChild(inner);
 
   return detail;
 }
 
-/**
- * Build a single order row (summary + expandable detail).
- * @param {object} order
- * @returns {HTMLElement}
- */
 function buildOrderRow(order) {
   const wrapper = document.createElement('div');
   wrapper.classList.add('account-order-row');
@@ -129,23 +148,44 @@ function buildOrderRow(order) {
 
   const statusClass = getStatusClass(order.status);
 
-  // Summary row (always visible)
   const summary = document.createElement('button');
   summary.type = 'button';
   summary.classList.add('account-order-summary');
   summary.setAttribute('aria-expanded', 'false');
   summary.setAttribute('aria-controls', `order-detail-${order.orderId}`);
 
-  summary.innerHTML = `
-    <span class="account-order-id">${order.orderId}</span>
-    <span class="account-order-date">${formatOrderDate(order.date)}</span>
-    <span class="account-order-status">
-      <span class="account-status-pill ${statusClass}">${order.status}</span>
-    </span>
-    <span class="account-order-items-count">${order.itemsCount} item${order.itemsCount !== 1 ? 's' : ''}</span>
-    <span class="account-order-total">${formatPrice(order.total)}</span>
-    <span class="account-order-toggle">${CHEVRON_SVG}</span>
-  `;
+  const orderIdSpan = document.createElement('span');
+  orderIdSpan.classList.add('account-order-id');
+  orderIdSpan.textContent = order.orderId;
+  summary.appendChild(orderIdSpan);
+
+  const dateSpan = document.createElement('span');
+  dateSpan.classList.add('account-order-date');
+  dateSpan.textContent = formatOrderDate(order.date);
+  summary.appendChild(dateSpan);
+
+  const statusSpan = document.createElement('span');
+  statusSpan.classList.add('account-order-status');
+  const statusPill = document.createElement('span');
+  statusPill.classList.add('account-status-pill', statusClass);
+  statusPill.textContent = order.status;
+  statusSpan.appendChild(statusPill);
+  summary.appendChild(statusSpan);
+
+  const itemsCountSpan = document.createElement('span');
+  itemsCountSpan.classList.add('account-order-items-count');
+  itemsCountSpan.textContent = `${order.itemsCount} item${order.itemsCount !== 1 ? 's' : ''}`;
+  summary.appendChild(itemsCountSpan);
+
+  const totalSpan = document.createElement('span');
+  totalSpan.classList.add('account-order-total');
+  totalSpan.textContent = formatPrice(order.total);
+  summary.appendChild(totalSpan);
+
+  const toggleSpan = document.createElement('span');
+  toggleSpan.classList.add('account-order-toggle');
+  toggleSpan.innerHTML = CHEVRON_SVG;
+  summary.appendChild(toggleSpan);
 
   // Detail panel
   const detail = buildOrderDetail(order);
@@ -163,10 +203,6 @@ function buildOrderRow(order) {
   return wrapper;
 }
 
-/**
- * Decorate the account-orders block.
- * @param {HTMLElement} block
- */
 export default function decorate(block) {
   const config = readConfig(block);
   block.innerHTML = '';
@@ -178,20 +214,35 @@ export default function decorate(block) {
   // ── Page header ──
   const header = document.createElement('div');
   header.classList.add('account-orders-header');
-  header.innerHTML = `
-    <h1 class="account-orders-title">${pageHeading}</h1>
-    <span class="account-orders-count">${orders.length} order${orders.length !== 1 ? 's' : ''}</span>
-  `;
+
+  const titleEl = document.createElement('h1');
+  titleEl.classList.add('account-orders-title');
+  titleEl.textContent = pageHeading;
+  header.appendChild(titleEl);
+
+  const countSpan = document.createElement('span');
+  countSpan.classList.add('account-orders-count');
+  countSpan.textContent = `${orders.length} order${orders.length !== 1 ? 's' : ''}`;
+  header.appendChild(countSpan);
+
   block.appendChild(header);
 
   // ── Empty state ──
   if (orders.length === 0) {
     const empty = document.createElement('div');
     empty.classList.add('account-orders-empty');
-    empty.innerHTML = `
-      <p class="account-orders-empty-text">You haven't placed any orders yet.</p>
-      <a href="${continueUrl}" class="button accent">Start Shopping</a>
-    `;
+
+    const emptyText = document.createElement('p');
+    emptyText.classList.add('account-orders-empty-text');
+    emptyText.textContent = "You haven't placed any orders yet.";
+    empty.appendChild(emptyText);
+
+    const shopLink = document.createElement('a');
+    shopLink.href = continueUrl;
+    shopLink.classList.add('button', 'accent');
+    shopLink.textContent = 'Start Shopping';
+    empty.appendChild(shopLink);
+
     block.appendChild(empty);
     return;
   }
@@ -201,18 +252,17 @@ export default function decorate(block) {
   table.classList.add('account-orders-table');
   table.setAttribute('role', 'list');
 
-  // Column labels (desktop only)
+  // Column labels
   const tableHead = document.createElement('div');
   tableHead.classList.add('account-orders-table-head');
   tableHead.setAttribute('aria-hidden', 'true');
-  tableHead.innerHTML = `
-    <span>Order ID</span>
-    <span>Date</span>
-    <span>Status</span>
-    <span>Items</span>
-    <span>Total</span>
-    <span></span>
-  `;
+
+  ['Order ID', 'Date', 'Status', 'Items', 'Total', ''].forEach((label) => {
+    const span = document.createElement('span');
+    span.textContent = label;
+    tableHead.appendChild(span);
+  });
+
   table.appendChild(tableHead);
 
   orders.forEach((order) => {

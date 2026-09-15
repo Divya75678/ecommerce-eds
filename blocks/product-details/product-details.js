@@ -1,34 +1,3 @@
-/**
- * Product Details Block
- *
- * Renders a two-column PDP hero: image gallery (left) + product info panel (right).
- *
- * Document table structure (7 columns):
- * ─────────────────────────────────────────────────────────────────────────
- * Row 0 (block name):  "Product Details"  |  …  |  …  |  …  |  …  |  …  |  …
- * Row 1 (images+meta): [img1] | [img2] | [img3] | Product Title | Rating | Price | SKU
- * Row 2 (description): (empty)×3 | Long description paragraph | (empty)×3
- * Row 3 (features):    (empty)×3 | • Feature 1 \n• Feature 2 … | (empty)×3
- * Row 4 (CTAs):        (empty)×3 | [Add to Cart link] | (empty)×3
- * ─────────────────────────────────────────────────────────────────────────
- *
- * Rendered output:
- *   .product-details-inner
- *     .product-gallery
- *       .product-gallery-main  (large image)
- *       .product-gallery-thumbs  (thumbnail strip)
- *     .product-info
- *       h1.product-title
- *       .product-rating  (stars + numeric)
- *       p.product-price
- *       p.product-sku
- *       p.product-description
- *       ul.product-features
- *       .product-actions
- *         .product-qty  (− input +)
- *         button.button.accent  (Add to Cart)
- */
-
 import { addItem as cartAddItem } from '../../scripts/cart.js';
 
 const STAR_FILLED = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -49,11 +18,6 @@ const STAR_EMPTY = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
 </svg>`;
 
-/**
- * Build star rating HTML from a numeric string like "4.8"
- * @param {string} ratingText
- * @returns {string} HTML string
- */
 function buildStars(ratingText) {
   const rating = parseFloat(ratingText);
   if (Number.isNaN(rating)) return '';
@@ -71,12 +35,6 @@ function buildStars(ratingText) {
   return stars;
 }
 
-/**
- * Activate a thumbnail — swap main image
- * @param {HTMLElement} thumbBtn
- * @param {HTMLElement} mainImg
- * @param {NodeList} allThumbs
- */
 function activateThumb(thumbBtn, mainImg) {
   const thumbImg = thumbBtn.querySelector('img');
   if (!thumbImg) return;
@@ -97,8 +55,6 @@ function activateThumb(thumbBtn, mainImg) {
 
 export default function decorate(block) {
   const rows = [...block.querySelectorAll(':scope > div')];
-
-  // ── Row 1: images (cols 0–2) + meta (cols 3–5) ──
   const metaRow = rows[0];
   const cells = metaRow ? [...metaRow.querySelectorAll(':scope > div')] : [];
 
@@ -108,22 +64,16 @@ export default function decorate(block) {
   const priceCell = cells[5];
   const skuCell = cells[6];
 
-  // ── Row 2: description ──
   const descRow = rows[1];
   const descCell = descRow?.querySelector(':scope > div:nth-child(4)') || descRow?.querySelector(':scope > div');
 
-  // ── Row 3: features ──
   const featuresRow = rows[2];
   const featuresCell = featuresRow?.querySelector(':scope > div:nth-child(4)') || featuresRow?.querySelector(':scope > div');
 
-  // ── Row 4: CTAs ──
   const ctaRow = rows[3];
   const ctaCells = ctaRow ? [...ctaRow.querySelectorAll(':scope > div')] : [];
   const addToCartCell = ctaCells[3] || ctaCells[0];
 
-  // ════════════════════════════════════════
-  // BUILD GALLERY (left panel)
-  // ════════════════════════════════════════
   const gallery = document.createElement('div');
   gallery.classList.add('product-gallery');
 
@@ -134,11 +84,8 @@ export default function decorate(block) {
   thumbStrip.classList.add('product-gallery-thumbs');
 
   if (imageCells.length > 0) {
-    // First image as default main image
     const firstPicture = imageCells[0].querySelector('picture') || imageCells[0].querySelector('img');
     if (firstPicture) mainViewer.appendChild(firstPicture.cloneNode(true));
-
-    // Build thumbnails
     imageCells.forEach((cell, idx) => {
       const picture = cell.querySelector('picture') || cell.querySelector('img');
       if (!picture) return;
@@ -163,9 +110,6 @@ export default function decorate(block) {
   gallery.appendChild(mainViewer);
   gallery.appendChild(thumbStrip);
 
-  // ════════════════════════════════════════
-  // BUILD INFO PANEL (right panel)
-  // ════════════════════════════════════════
   const info = document.createElement('div');
   info.classList.add('product-info');
 
@@ -178,7 +122,6 @@ export default function decorate(block) {
     info.appendChild(h1);
   }
 
-  // Rating
   const ratingText = ratingCell?.textContent?.trim();
   if (ratingText) {
     const ratingEl = document.createElement('div');
@@ -190,7 +133,6 @@ export default function decorate(block) {
     info.appendChild(ratingEl);
   }
 
-  // Price
   const priceText = priceCell?.textContent?.trim();
   if (priceText) {
     const price = document.createElement('p');
@@ -199,7 +141,6 @@ export default function decorate(block) {
     info.appendChild(price);
   }
 
-  // SKU
   const skuText = skuCell?.textContent?.trim();
   if (skuText) {
     const sku = document.createElement('p');
@@ -208,12 +149,10 @@ export default function decorate(block) {
     info.appendChild(sku);
   }
 
-  // Divider
   const divider = document.createElement('hr');
   divider.classList.add('product-divider');
   info.appendChild(divider);
 
-  // Description
   if (descCell?.textContent?.trim()) {
     const desc = document.createElement('p');
     desc.classList.add('product-description');
@@ -221,7 +160,6 @@ export default function decorate(block) {
     info.appendChild(desc);
   }
 
-  // Features — parse bullet list (lines starting with • or - or authored as <ul>)
   if (featuresCell?.textContent?.trim()) {
     const existingList = featuresCell.querySelector('ul, ol');
     if (existingList) {
@@ -234,7 +172,6 @@ export default function decorate(block) {
       });
       info.appendChild(featuresList);
     } else {
-      // Plain text with bullets: split by newline or • character
       const rawText = featuresCell.textContent.trim();
       const lines = rawText.split(/\n|•/).map((l) => l.trim()).filter(Boolean);
       if (lines.length > 0) {
@@ -250,11 +187,9 @@ export default function decorate(block) {
     }
   }
 
-  // ── Actions: Qty + Add to Cart + Wishlist ──
   const actions = document.createElement('div');
   actions.classList.add('product-actions');
 
-  // Quantity selector
   const qtyWrapper = document.createElement('div');
   qtyWrapper.classList.add('product-qty');
   qtyWrapper.innerHTML = `
@@ -279,9 +214,7 @@ export default function decorate(block) {
 
   actions.appendChild(qtyWrapper);
 
-  // ── Toast notification helper (scoped to this block) ──
   function showAddedToast(triggerEl) {
-    // Remove any existing toast
     const existing = block.querySelector('.product-toast');
     if (existing) existing.remove();
 
@@ -298,7 +231,6 @@ export default function decorate(block) {
       <span>Added to cart!</span>
     `;
 
-    // Position toast near the button
     const actionsEl = triggerEl.closest('.product-actions');
     if (actionsEl) {
       actionsEl.appendChild(toast);
@@ -306,17 +238,14 @@ export default function decorate(block) {
       block.appendChild(toast);
     }
 
-    // Animate in
     requestAnimationFrame(() => toast.classList.add('is-visible'));
 
-    // Auto-dismiss after 2.5 s
     setTimeout(() => {
       toast.classList.remove('is-visible');
       toast.addEventListener('transitionend', () => toast.remove(), { once: true });
     }, 2500);
   }
 
-  // Add to Cart CTA — wired to cart module
   const ctaLink = addToCartCell?.querySelector('a');
   const ctaText = ctaLink?.textContent?.trim() || 'Add to Cart';
 
@@ -326,7 +255,6 @@ export default function decorate(block) {
   addToCart.textContent = ctaText;
 
   addToCart.addEventListener('click', () => {
-    // Collect product data from the rendered info panel
     const currentImage = mainViewer.querySelector('img')?.src
       || mainViewer.querySelector('picture source')?.srcset
       || '';
@@ -346,10 +274,6 @@ export default function decorate(block) {
   actions.appendChild(addToCart);
 
   info.appendChild(actions);
-
-  // ════════════════════════════════════════
-  // ASSEMBLE
-  // ════════════════════════════════════════
 
   block.innerHTML = '';
   const inner = document.createElement('div');

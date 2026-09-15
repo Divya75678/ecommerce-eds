@@ -1,16 +1,9 @@
-/* =========================================================
-   Mini Cart Block
-   Header cart icon + badge + dropdown overlay
-   ========================================================= */
-
-/* ── Wrapper ── */
 .mini-cart {
   position: relative;
   display: inline-flex;
   align-items: center;
 }
 
-/* ── Trigger button ── */
 .mini-cart-trigger {
   position: relative;
   display: inline-flex;
@@ -39,7 +32,6 @@
   outline-offset: 2px;
 }
 
-/* ── Badge ── */
 .mini-cart-badge {
   position: absolute;
   top: 2px;
@@ -64,12 +56,10 @@
   display: none;
 }
 
-/* Pop animation when badge updates */
 .mini-cart-badge.pop {
   transform: scale(1.35);
 }
 
-/* ── Dropdown ── */
 .mini-cart-dropdown {
   display: none;
   position: absolute;
@@ -95,7 +85,6 @@
   transform: translateY(0);
 }
 
-/* ── Dropdown header ── */
 .mini-cart-header {
   display: flex;
   align-items: center;
@@ -112,7 +101,6 @@
   color: var(--color-brand-dark, #1e3a1e);
 }
 
-/* ── Items list ── */
 .mini-cart-items {
   list-style: none;
   margin: 0;
@@ -137,7 +125,6 @@
   border-radius: 4px;
 }
 
-/* ── Empty state ── */
 .mini-cart-empty {
   padding: 24px 20px;
   text-align: center;
@@ -145,7 +132,6 @@
   color: var(--color-text-muted, #6b6b6b);
 }
 
-/* ── Line item ── */
 .mini-cart-item {
   display: flex;
   align-items: center;
@@ -202,7 +188,6 @@
   color: var(--color-text-muted, #6b6b6b);
 }
 
-/* ── Footer ── */
 .mini-cart-footer {
   flex-shrink: 0;
   padding: 14px 20px 18px;
@@ -256,7 +241,6 @@
   text-decoration: none;
 }
 
-/* ── Mobile: full-width dropdown ── */
 @media (width < 480px) {
   .mini-cart-dropdown {
     position: fixed;

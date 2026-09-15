@@ -16,8 +16,8 @@
   --light-color: #f8f8f8;
   --dark-color: #505050;
   --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  --link-color: var(--color-brand-green, #5a9e5a);
+  --link-hover-color: var(--color-brand-green-hover, #4a8e4a);
 
   /* brand / storefront colors */
   --color-brand-dark: #1e3a1e;
@@ -247,18 +247,18 @@ button.button.primary:disabled:focus-visible {
 
 a.button.secondary,
 button.button.secondary {
-  border-color: var(--text-color);
+  border-color: var(--color-brand-dark, #1e3a1e);
   background-color: transparent;
-  color: var(--text-color);
+  color: var(--color-brand-dark, #1e3a1e);
 }
 
 a.button.secondary:hover,
 a.button.secondary:focus-visible,
 button.button.secondary:hover,
 button.button.secondary:focus-visible {
-  border-color: var(--dark-color);
-  background-color: var(--light-color);
-  color: var(--dark-color);
+  border-color: var(--color-brand-dark, #1e3a1e);
+  background-color: var(--color-brand-dark, #1e3a1e);
+  color: #fff;
 }
 
 a.button.secondary[aria-disabled="true"],
@@ -275,17 +275,20 @@ button.button.secondary:disabled:focus-visible {
 /* high-impact call-to-action */
 a.button.accent,
 button.button.accent {
-  border-color: var(--link-color);
-  background-color: var(--link-color);
-  color: var(--background-color);
+  border-color: var(--color-brand-green, #5a9e5a);
+  background-color: var(--color-brand-green, #5a9e5a);
+  color: #fff;
+  border-radius: var(--border-radius-pill, 100px);
 }
 
 a.button.accent:hover,
 a.button.accent:focus-visible,
 button.button.accent:hover,
 button.button.accent:focus-visible {
-  border-color: var(--link-hover-color);
-  background-color: var(--link-hover-color);
+  border-color: var(--color-brand-green-hover, #4a8e4a);
+  background-color: var(--color-brand-green-hover, #4a8e4a);
+  color: #fff;
+  text-decoration: none;
 }
 
 a.button.accent[aria-disabled="true"],
@@ -340,7 +343,7 @@ main > .section:first-of-type {
 /* section metadata */
 main .section.light,
 main .section.highlight {
-  background-color: var(--light-color);
+  background-color: #FFFFFF;
   margin: 0;
-  padding: 40px 0;
+  padding: 20px 0;
 }
