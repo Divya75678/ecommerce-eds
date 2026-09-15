@@ -1,8 +1,3 @@
-/* =========================================================
-   Account Orders Block — /account/orders page
-   Order list with expandable detail rows
-   ========================================================= */
-
 .account-orders-wrapper {
   padding: 0;
 }
@@ -22,9 +17,6 @@
   }
 }
 
-/* =========================================================
-   Page Header
-   ========================================================= */
 .account-orders-header {
   display: flex;
   align-items: baseline;
@@ -50,9 +42,6 @@
   padding: 3px 12px;
 }
 
-/* =========================================================
-   Empty State
-   ========================================================= */
 .account-orders-empty {
   display: flex;
   flex-direction: column;
@@ -68,9 +57,6 @@
   margin: 0;
 }
 
-/* =========================================================
-   Orders Table
-   ========================================================= */
 .account-orders-table {
   display: flex;
   flex-direction: column;
@@ -80,7 +66,6 @@
   overflow: hidden;
 }
 
-/* Column header row — desktop only */
 .account-orders-table-head {
   display: none;
 }
@@ -102,9 +87,6 @@
   }
 }
 
-/* =========================================================
-   Order Row
-   ========================================================= */
 .account-order-row {
   border-bottom: 1px solid var(--color-border, #e0d9d0);
 }
@@ -113,7 +95,6 @@
   border-bottom: none;
 }
 
-/* Summary button — the always-visible clickable row */
 .account-order-summary {
   display: grid;
   width: 100%;
@@ -126,8 +107,6 @@
   font: inherit;
   color: inherit;
   transition: background-color var(--transition-base, 200ms ease);
-
-  /* Mobile: 2-column layout */
   grid-template-columns: 1fr auto;
   grid-template-areas:
     "id     toggle"
@@ -150,7 +129,6 @@
   }
 }
 
-/* Individual cells */
 .account-order-id {
   font-size: var(--body-font-size-xs, 13px);
   font-family: 'Courier New', Courier, monospace;
@@ -193,7 +171,6 @@
   }
 }
 
-/* Expand/collapse toggle */
 .account-order-toggle {
   display: flex;
   align-items: center;
@@ -218,9 +195,6 @@
   transform: rotate(180deg);
 }
 
-/* =========================================================
-   Status Pills
-   ========================================================= */
 .account-status-pill {
   display: inline-flex;
   align-items: center;
@@ -253,9 +227,6 @@
   color: var(--color-text-muted, #6b6b6b);
 }
 
-/* =========================================================
-   Expanded Order Detail Panel
-   ========================================================= */
 .account-order-detail {
   border-top: 1px solid var(--color-border, #e0d9d0);
   background-color: var(--color-bg-cream, #f5f0eb);
@@ -281,7 +252,6 @@
   margin: 0;
 }
 
-/* Line items within expanded detail */
 .account-order-detail-items {
   display: flex;
   flex-direction: column;
@@ -352,7 +322,6 @@
   white-space: nowrap;
 }
 
-/* Order total row within detail */
 .account-order-detail-total {
   display: flex;
   justify-content: space-between;
@@ -379,9 +348,6 @@
   margin: 0;
 }
 
-/* =========================================================
-   Section overrides
-   ========================================================= */
 .section:has(.account-orders) {
   background-color: var(--background-color, #fff);
 }

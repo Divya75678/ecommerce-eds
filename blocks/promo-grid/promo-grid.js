@@ -1,30 +1,3 @@
-/**
- * Promo Grid Block
- *
- * Two variants controlled by block class name in the document:
- *
- * ── CATEGORIES variant ("promo-grid categories") ──
- * Renders a "Shop by Category" grid of image cards.
- *
- * Table structure:
- * Row 1: Section heading (col 1) | "View all" link (col 2)   ← header row
- * Row 2+: [image] | Category name | Item count | CTA link href
- *
- * ── PRODUCTS variant ("promo-grid products") ──
- * Renders a "New Arrivals / Best Sellers" product card grid.
- *
- * Table structure:
- * Row 1: Section heading (col 1) | "View all" link (col 2)   ← header row
- * Row 2+: [image] | Product name | Badge (NEW/SALE) | Price | CTA link href
- *
- * If no variant class is set, defaults to "categories" behaviour.
- */
-
-/**
- * Build a category card element
- * @param {HTMLElement} row - the table row div
- * @returns {HTMLLIElement}
- */
 function buildCategoryCard(row) {
   const cells = row.querySelectorAll(':scope > div');
   const imageCell = cells[0];
@@ -35,7 +8,6 @@ function buildCategoryCard(row) {
   const li = document.createElement('li');
   li.classList.add('promo-grid-card', 'promo-grid-card--category');
 
-  // Link wrapper
   const href = linkCell?.querySelector('a')?.href
     || linkCell?.textContent?.trim()
     || '#';
@@ -44,7 +16,6 @@ function buildCategoryCard(row) {
   anchor.classList.add('promo-grid-card-link');
   anchor.setAttribute('aria-label', nameCell?.textContent?.trim() || 'Category');
 
-  // Image
   const picture = imageCell?.querySelector('picture') || imageCell?.querySelector('img');
   if (picture) {
     const imageWrapper = document.createElement('div');
@@ -53,7 +24,6 @@ function buildCategoryCard(row) {
     anchor.appendChild(imageWrapper);
   }
 
-  // Text content
   const textDiv = document.createElement('div');
   textDiv.classList.add('promo-grid-card-body');
 
@@ -79,11 +49,6 @@ function buildCategoryCard(row) {
   return li;
 }
 
-/**
- * Build a product card element
- * @param {HTMLElement} row - the table row div
- * @returns {HTMLLIElement}
- */
 function buildProductCard(row) {
   const cells = row.querySelectorAll(':scope > div');
   const imageCell = cells[0];
@@ -100,7 +65,6 @@ function buildProductCard(row) {
     || linkCell?.textContent?.trim()
     || '#';
 
-  // Image wrapper
   const imageWrapper = document.createElement('div');
   imageWrapper.classList.add('promo-grid-card-image');
 
@@ -109,7 +73,6 @@ function buildProductCard(row) {
     imageWrapper.appendChild(picture);
   }
 
-  // Badge
   const badgeText = badgeCell?.textContent?.trim();
   if (badgeText) {
     const badge = document.createElement('span');
@@ -120,7 +83,6 @@ function buildProductCard(row) {
     imageWrapper.appendChild(badge);
   }
 
-  // Wishlist button (decorative)
   const wishlistBtn = document.createElement('button');
   wishlistBtn.classList.add('promo-grid-wishlist');
   wishlistBtn.setAttribute('aria-label', 'Add to wishlist');
@@ -134,7 +96,6 @@ function buildProductCard(row) {
 
   li.appendChild(imageWrapper);
 
-  // Card body
   const body = document.createElement('div');
   body.classList.add('promo-grid-card-body');
 
@@ -172,7 +133,6 @@ export default function decorate(block) {
 
   const rows = [...block.querySelectorAll(':scope > div')];
 
-  // ── Row 0: Section header (title + optional "view all" link) ──
   const headerRow = rows[0];
   const titleCell = headerRow?.querySelector(':scope > div:first-child');
   const viewAllCell = headerRow?.querySelector(':scope > div:last-child');
@@ -182,7 +142,6 @@ export default function decorate(block) {
   const viewAllText = viewAllCell?.textContent?.trim();
   const showViewAll = viewAllText && viewAllText !== sectionTitle;
 
-  // ── Build section header ──
   const header = document.createElement('div');
   header.classList.add('promo-grid-header');
 
@@ -201,7 +160,6 @@ export default function decorate(block) {
     header.appendChild(viewAll);
   }
 
-  // ── Build card grid ──
   const cardRows = rows.slice(1);
   const grid = document.createElement('ul');
   grid.classList.add('promo-grid-list');
@@ -211,7 +169,6 @@ export default function decorate(block) {
     grid.appendChild(card);
   });
 
-  // ── Assemble ──
   block.innerHTML = '';
   block.appendChild(header);
   block.appendChild(grid);

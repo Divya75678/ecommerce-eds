@@ -1,8 +1,3 @@
-/* =========================================================
-   Product Specs Block
-   Accordion panels: Details, Specifications, Shipping, Material & Care
-   ========================================================= */
-
 .product-specs-wrapper {
   padding: 0;
 }
@@ -13,19 +8,14 @@
   margin: 0 auto;
 }
 
-/* ── Inner container ── */
 .product-specs-inner {
   border-top: 1px solid var(--color-border, #e0d9d0);
 }
 
-/* =========================================================
-   Accordion item
-   ========================================================= */
 .product-specs-item {
   border-bottom: 1px solid var(--color-border, #e0d9d0);
 }
 
-/* ── Trigger button ── */
 .product-specs-trigger {
   display: flex;
   align-items: center;
@@ -52,7 +42,6 @@
   border-radius: 2px;
 }
 
-/* Label text */
 .product-specs-label {
   font-family: var(--heading-font-family);
   font-size: var(--body-font-size-m, 18px);
@@ -61,7 +50,6 @@
   flex: 1;
 }
 
-/* Chevron icon — rotates when expanded */
 .product-specs-chevron {
   flex-shrink: 0;
   color: var(--color-text-muted, #6b6b6b);
@@ -78,19 +66,12 @@
   color: var(--color-brand-dark, #1e3a1e);
 }
 
-/* ── Panel (collapsible container) ── */
 .product-specs-panel {
   overflow: hidden;
   max-height: 0;
   transition: max-height 300ms ease;
 }
 
-/* When hidden attribute removed, panel transitions open */
-.product-specs-panel:not([hidden]) {
-  /* max-height set via JS to scrollHeight */
-}
-
-/* ── Content inside panel ── */
 .product-specs-content {
   padding: 0 0 24px;
 }
@@ -106,7 +87,6 @@
   margin-bottom: 0;
 }
 
-/* Specs list */
 .product-specs-list,
 .product-specs-content ul {
   list-style: none;
@@ -139,22 +119,15 @@
   margin-top: 8px;
 }
 
-/* Key-value pair style for specs (authored as "Key: Value" text) */
 .product-specs-content strong {
   color: var(--text-color, #131313);
   font-weight: 600;
 }
 
-/* =========================================================
-   Section background
-   ========================================================= */
 .section:has(.product-specs) {
   background-color: var(--background-color, #fff);
 }
 
-/* =========================================================
-   Responsive
-   ========================================================= */
 @media (width >= 900px) {
   .product-specs {
     padding: 0 32px 64px;

@@ -4,6 +4,8 @@ header .nav-wrapper {
   width: 100%;
   z-index: 2;
   position: fixed;
+  border-bottom: 2px solid var(--color-brand-green, #5a9e5a);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
 }
 
 header nav {
@@ -56,6 +58,13 @@ header nav p {
 
 header nav a:any-link {
   color: currentcolor;
+  text-decoration: none;
+  transition: color var(--transition-base, 200ms ease);
+}
+
+header nav a:hover {
+  color: var(--color-brand-green, #5a9e5a);
+  text-decoration: none;
 }
 
 /* hamburger */
@@ -146,6 +155,7 @@ header .nav-brand {
   font-size: var(--heading-font-size-s);
   font-weight: 700;
   line-height: 1;
+  color: var(--color-brand-dark, #1e3a1e);
 }
 
 header nav .nav-brand img {
@@ -175,6 +185,7 @@ header nav .nav-sections ul {
 
 header nav .nav-sections ul > li {
   font-weight: 500;
+  transition: color var(--transition-base, 200ms ease);
 }
 
 header nav .nav-sections ul > li > ul {
@@ -183,6 +194,10 @@ header nav .nav-sections ul > li > ul {
 
 header nav .nav-sections ul > li > ul > li {
   font-weight: 400;
+}
+
+header nav .nav-sections ul > li:hover {
+  color: var(--color-brand-green, #5a9e5a);
 }
 
 @media (width >= 900px) {
@@ -271,17 +286,27 @@ header nav .nav-tools {
   grid-area: tools;
 }
 
-header nav .nav-tools .default-content-wrapper{
+header nav .nav-tools .default-content-wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 0 24px;
 }
 
-header nav .nav-tools .default-content-wrapper p{
- gap: 16px;
+header nav .nav-tools .default-content-wrapper p {
+  gap: 16px;
 }
 
+/* Active / current nav item highlight */
+header nav .nav-sections ul > li[aria-current="page"],
+header nav .nav-sections ul > li.is-active {
+  color: var(--color-brand-green, #5a9e5a);
+}
 
-
-
+/* Focus ring uses brand green */
+header nav a:focus-visible,
+header nav button:focus-visible {
+  outline: 2px solid var(--color-brand-green, #5a9e5a);
+  outline-offset: 2px;
+  border-radius: var(--border-radius-sm, 6px);
+}

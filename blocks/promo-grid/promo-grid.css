@@ -1,9 +1,3 @@
-/* =========================================================
-   Promo Grid Block
-   Variants: .promo-grid.categories | .promo-grid.products
-   ========================================================= */
-
-/* ── Section wrapper ── */
 .promo-grid-wrapper {
   padding: 0;
 }
@@ -14,7 +8,6 @@
   margin: 0 auto;
 }
 
-/* ── Section header row (title + view-all link) ── */
 .promo-grid-header {
   display: flex;
   align-items: baseline;
@@ -46,7 +39,6 @@
   text-decoration: underline;
 }
 
-/* ── Grid list reset ── */
 .promo-grid-list {
   list-style: none;
   margin: 0;
@@ -56,9 +48,7 @@
   grid-template-columns: repeat(2, 1fr);
 }
 
-/* =========================================================
-   Shared card base styles
-   ========================================================= */
+
 .promo-grid-card {
   background: var(--color-bg-card, #e8ddd0);
   border-radius: var(--border-radius-card, 12px);
@@ -73,7 +63,6 @@
   transform: translateY(-2px);
 }
 
-/* Card image container */
 .promo-grid-card-image {
   position: relative;
   width: 100%;
@@ -101,7 +90,6 @@
   transform: scale(1.04);
 }
 
-/* Card body text area */
 .promo-grid-card-body {
   padding: 16px;
 }
@@ -115,9 +103,6 @@
   line-height: 1.3;
 }
 
-/* =========================================================
-   Category card specific
-   ========================================================= */
 .promo-grid-card--category .promo-grid-card-link {
   display: block;
   text-decoration: none;
@@ -145,14 +130,10 @@
   text-decoration: underline;
 }
 
-/* =========================================================
-   Product card specific
-   ========================================================= */
 .promo-grid-card--product .promo-grid-card-image {
   aspect-ratio: 3 / 4;
 }
 
-/* Badge (NEW / SALE) */
 .promo-grid-badge {
   position: absolute;
   top: 12px;
@@ -175,7 +156,6 @@
   color: #fff;
 }
 
-/* Wishlist button */
 .promo-grid-wishlist {
   position: absolute;
   top: 12px;
@@ -215,12 +195,12 @@
   display: block;
   width: 100%;
   text-align: center;
-  background-color: var(--text-color, #131313);
+  background-color: var(--color-brand-green, #5a9e5a);
   color: #fff;
-  border: 2px solid var(--text-color, #131313);
+  border: 2px solid var(--color-brand-green, #5a9e5a);
   border-radius: var(--border-radius-pill, 100px);
   padding: 10px 16px;
-  font-size: 13px;
+  font-size: clamp(11px, 2.5vw, 20px) !important;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
@@ -230,31 +210,22 @@
 }
 
 .promo-grid-cta.button:hover {
-  background-color: var(--dark-color, #505050);
-  border-color: var(--dark-color, #505050);
+  background-color: var(--color-brand-green-hover, #4a8e4a);
+  border-color: var(--color-brand-green-hover, #4a8e4a);
   text-decoration: none;
   color: #fff;
 }
 
-/* =========================================================
-   Section background — categories uses cream bg
-   ========================================================= */
 .section:has(.promo-grid.categories) {
   background-color: var(--color-bg-cream, #f5f0eb);
 }
 
-/* =========================================================
-   Responsive breakpoints
-   ========================================================= */
-
-/* Tablet: 3 columns */
 @media (width >= 600px) {
   .promo-grid-list {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Desktop: 4 columns */
 @media (width >= 900px) {
   .promo-grid {
     padding: 64px 32px;

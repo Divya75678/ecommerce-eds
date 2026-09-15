@@ -1,39 +1,14 @@
-/**
- * Account Module — mock profile data and order history for My Account.
- *
- * Profile is static demo data (swap for real auth/API later).
- * Orders merge the localStorage orders store (scripts/orders.js) with
- * seed data so the page is never empty on a first visit.
- *
- * Public API:
- *   getProfile()          – return mock profile object
- *   getAccountOrders()    – return merged orders array (live + seed), newest first
- *   formatOrderDate(iso)  – format ISO date string to readable label
- *   getStatusClass(status) – return CSS modifier class for order status pill
- */
-
 import { getOrders } from './orders.js';
 
-/* ─── Mock profile ─────────────────────────────────────────── */
-
-/**
- * Return mock user profile.
- * @returns {{ name, email, memberSince, avatar }}
- */
 export function getProfile() {
   return {
     name: 'Divya Patel',
     email: 'divya.patel@example.com',
     memberSince: '2024-01-15',
-    avatar: null, // null = use initials fallback
+    avatar: null,
   };
 }
 
-/**
- * Derive display initials from a full name.
- * @param {string} name
- * @returns {string}  e.g. "Alex Johnson" → "AJ"
- */
 export function getInitials(name) {
   return name
     .split(' ')
@@ -41,8 +16,6 @@ export function getInitials(name) {
     .slice(0, 2)
     .join('');
 }
-
-/* ─── Seed orders (always shown; live orders prepended) ────── */
 
 const SEED_ORDERS = [
   {
@@ -98,14 +71,6 @@ const SEED_ORDERS = [
   },
 ];
 
-/* ─── Helpers ───────────────────────────────────────────────── */
-
-/**
- * Normalise a raw order record into the account order shape.
- * Handles records from both orders.js (live) and seed data.
- * @param {object} order
- * @returns {object}
- */
 function normalise(order) {
   const items = order.items || [];
   const itemsCount = order.itemsCount
@@ -124,12 +89,6 @@ function normalise(order) {
   };
 }
 
-/**
- * Return all orders: live (from localStorage) + seed data.
- * Deduplicates by orderId so refreshing after placing an order
- * doesn't show a duplicate seed entry.
- * @returns {Array}
- */
 export function getAccountOrders() {
   const live = getOrders().map(normalise);
   const liveIds = new Set(live.map((o) => o.orderId));
@@ -141,12 +100,6 @@ export function getAccountOrders() {
   return [...live, ...seeds];
 }
 
-/**
- * Format an ISO date string into a human-readable label.
- * e.g. "2026-08-15T10:30:00.000Z" → "15 Aug 2026"
- * @param {string} iso
- * @returns {string}
- */
 export function formatOrderDate(iso) {
   try {
     return new Date(iso).toLocaleDateString('en-GB', {
@@ -159,11 +112,6 @@ export function formatOrderDate(iso) {
   }
 }
 
-/**
- * Return a CSS BEM modifier class for an order status pill.
- * @param {string} status
- * @returns {string}  e.g. 'account-status--delivered'
- */
 export function getStatusClass(status) {
   const map = {
     delivered: 'account-status--delivered',
