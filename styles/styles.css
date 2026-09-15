@@ -343,7 +343,7 @@ main > .section:first-of-type {
 /* section metadata */
 main .section.light,
 main .section.highlight {
-  background-color: #FFFFFF;
+  background-color: white;
   margin: 0;
   padding: 20px 0;
 }

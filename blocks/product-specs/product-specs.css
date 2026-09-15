@@ -72,10 +72,6 @@
   transition: max-height 300ms ease;
 }
 
-.product-specs-panel:not([hidden]) {
-
-}
-
 .product-specs-content {
   padding: 0 0 24px;
 }

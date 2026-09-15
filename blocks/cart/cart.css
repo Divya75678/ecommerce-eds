@@ -297,7 +297,6 @@
   color: var(--color-price, #1a1a1a);
   margin: 0;
   white-space: nowrap;
-
   display: none;
 }
 

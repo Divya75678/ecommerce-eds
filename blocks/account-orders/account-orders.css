@@ -107,7 +107,6 @@
   font: inherit;
   color: inherit;
   transition: background-color var(--transition-base, 200ms ease);
-
   grid-template-columns: 1fr auto;
   grid-template-areas:
     "id     toggle"
